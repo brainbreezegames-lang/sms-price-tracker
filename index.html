@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── Primary SEO ──────────────────────────────────────────────────── -->
+    <title>SMS Price Comparison — Compare OTP & SMS Costs Across 8+ Providers</title>
+    <meta name="description" content="Compare SMS and OTP verification prices across Twilio, Vonage, Plivo, Telnyx, MessageBird, ClickSend & more. Find the cheapest provider for 230+ countries. Updated daily." />
+    <meta name="keywords" content="SMS pricing comparison, OTP cost, Twilio pricing, Vonage pricing, cheapest SMS API, SMS verification cost, Plivo vs Twilio, bulk SMS pricing, SMS gateway comparison" />
+    <meta name="author" content="SMS Rates" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- ── Open Graph ─────────────────────────────────────────────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content="SMS Rates" />
+    <meta property="og:title"       content="SMS Price Comparison — Compare OTP & SMS Costs Across 8+ Providers" />
+    <meta property="og:description" content="Real-time SMS pricing across Twilio, Vonage, Plivo, Telnyx & more. Compare costs for 230+ countries." />
+    <meta property="og:locale"      content="en_US" />
+
+    <!-- ── Twitter Card ─────────────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="SMS Price Comparison — Compare OTP & SMS Costs" />
+    <meta name="twitter:description" content="Real-time SMS pricing across 8+ providers. Compare costs for 230+ countries." />
+
+    <!-- ── Favicon ──────────────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#06b6d4" />
+
+    <!-- ── Structured Data ───────────────────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "SMS Rates — SMS & OTP Price Comparison",
+          "description": "Real-time SMS price comparison across 8+ providers for 230+ countries.",
+          "applicationCategory": "BusinessApplication",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "What is the cheapest SMS API provider?",
+              "acceptedAnswer": { "@type": "Answer", "text": "For US outbound SMS, Plivo starts at $0.0050/message. Prices vary by country — SMS Rates compares all major providers in real-time." }},
+            { "@type": "Question", "name": "How much does Twilio charge per SMS?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Twilio charges $0.0079/message for US outbound SMS. Rates vary by destination country and carrier." }},
+            { "@type": "Question", "name": "What is the cheapest OTP verification service?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Plivo offers free verification API with only SMS delivery costs. Twilio Verify charges per successful verification. Compare all providers on SMS Rates." }}
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- ── Anti-flash: apply dark class before first paint ──────────────── -->
+    <script>
+      (function(){
+        var s = localStorage.getItem('theme') || 'dark';
+        document.documentElement.classList.add(s === 'light' ? 'light' : 'dark');
+      })();
+    </script>
+
+    <!-- ── Fonts (non-render-blocking) ────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  </head>
+
+  <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-200 selection:text-brand-900 dark:bg-ink dark:text-slate-100 dark:selection:bg-brand-900/60 dark:selection:text-brand-300">
+    <div id="root">
+      <noscript>
+        <div style="font-family:sans-serif;max-width:700px;margin:40px auto;padding:20px">
+          <h1>SMS Price Comparison</h1>
+          <p>Compare real-time SMS and OTP verification prices across Twilio, Vonage, Plivo, Telnyx, MessageBird & more. 230+ countries tracked.</p>
+        </div>
+      </noscript>
+    </div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

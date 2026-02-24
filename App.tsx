@@ -7,7 +7,7 @@ import { Filters } from './components/Filters';
 import { SMSComparisonTable } from './components/SMSComparisonTable';
 import { fetchSMSData, filterData, sortData } from './services/smsDataService';
 import { DEFAULT_FILTERS } from './types';
-import type { SMSRate, FilterState, SortState } from './types';
+import type { SMSRate, SMSDataPackage, FilterState, SortState } from './types';
 import { ITEMS_PER_PAGE } from './constants';
 
 /* ── Lazy-loaded pages ──────────────────────────────────────────────── */
@@ -17,6 +17,10 @@ const ProviderPage = React.lazy(() => import('./components/ProviderPage').then(m
 const TrendsPage = React.lazy(() => import('./components/TrendsPage').then(m => ({ default: m.TrendsPage })));
 const AboutPage = React.lazy(() => import('./components/AboutPage').then(m => ({ default: m.AboutPage })));
 const MethodologyPage = React.lazy(() => import('./components/MethodologyPage').then(m => ({ default: m.MethodologyPage })));
+const TCOCalculator = React.lazy(() => import('./components/TCOCalculator').then(m => ({ default: m.TCOCalculator })));
+const InvoiceAnalysis = React.lazy(() => import('./components/InvoiceAnalysis').then(m => ({ default: m.InvoiceAnalysis })));
+const PricingPage = React.lazy(() => import('./components/PricingPage').then(m => ({ default: m.PricingPage })));
+const APIPage = React.lazy(() => import('./components/APIPage').then(m => ({ default: m.APIPage })));
 
 /* ── Loading fallback ──────────────────────────────────────────────── */
 const PageLoader = () => (
@@ -48,10 +52,10 @@ const ComparisonPage: React.FC<{
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div>
         <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-          SMS Price Comparison
+          Messaging Price Comparison
         </h1>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Compare outbound &amp; inbound SMS costs across 8 providers for 230+ countries.
+          Compare SMS, MMS, WhatsApp &amp; RCS costs across {13} providers for {217}+ countries.
         </p>
       </div>
 
@@ -73,19 +77,18 @@ const ComparisonPage: React.FC<{
 /* ── App root ───────────────────────────────────────────────────────── */
 
 const App: React.FC = () => {
-  const [data, setData] = useState<SMSRate[]>([]);
+  const [dataPackage, setDataPackage] = useState<SMSDataPackage | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sort, setSort] = useState<SortState>({ field: 'price_usd', direction: 'asc' });
   const [page, setPage] = useState(1);
 
+  const data = dataPackage?.data ?? [];
+  const lastUpdated = dataPackage?.lastUpdated ?? null;
+
   useEffect(() => {
     fetchSMSData()
-      .then(({ data: d, lastUpdated: lu }) => {
-        setData(d);
-        setLastUpdated(lu);
-      })
+      .then((pkg) => setDataPackage(pkg))
       .catch((err) => console.error('Failed to load SMS data:', err))
       .finally(() => setIsLoading(false));
   }, []);
@@ -95,7 +98,7 @@ const App: React.FC = () => {
       <div className="min-h-screen flex flex-col">
         <Header lastUpdated={lastUpdated} />
 
-        <main className="flex-1">
+        <main id="main-content" className="flex-1">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<LandingPage data={data} isLoading={isLoading} />} />
@@ -117,6 +120,20 @@ const App: React.FC = () => {
               <Route path="/trends" element={<TrendsPage data={data} />} />
               <Route path="/country/:iso" element={<CountryPage data={data} />} />
               <Route path="/provider/:slug" element={<ProviderPage data={data} />} />
+              <Route
+                path="/calculator"
+                element={
+                  <TCOCalculator
+                    data={data}
+                    phoneNumbers={dataPackage?.phoneNumbers ?? []}
+                    volumeTiers={dataPackage?.volumeTiers ?? []}
+                    tenDlcFees={dataPackage?.tenDlcFees ?? []}
+                  />
+                }
+              />
+              <Route path="/analyze" element={<InvoiceAnalysis data={data} />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/api-docs" element={<APIPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/methodology" element={<MethodologyPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />

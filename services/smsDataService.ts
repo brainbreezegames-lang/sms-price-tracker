@@ -1,10 +1,19 @@
-import type { SMSRate, FilterState, SortState, PriceHistory } from '../types';
+import type { SMSRate, SMSDataPackage, FilterState, SortState, PriceHistory, PhoneNumberPrice, ProviderVolumePricing, TenDLCFees } from '../types';
 
-export const fetchSMSData = async (): Promise<{ data: SMSRate[]; lastUpdated: string }> => {
+export const fetchSMSData = async (): Promise<SMSDataPackage> => {
   const response = await fetch('/sms-data.json');
   if (!response.ok) throw new Error(`Failed to fetch SMS data: ${response.statusText}`);
   const json = await response.json();
-  return { data: json.data as SMSRate[], lastUpdated: json.lastUpdated };
+  return {
+    lastUpdated: json.lastUpdated,
+    count: json.count,
+    providerCount: json.providerCount,
+    countryCount: json.countryCount,
+    data: json.data as SMSRate[],
+    phoneNumbers: (json.phoneNumbers ?? []) as PhoneNumberPrice[],
+    volumeTiers: (json.volumeTiers ?? []) as ProviderVolumePricing[],
+    tenDlcFees: (json.tenDlcFees ?? []) as TenDLCFees[],
+  };
 };
 
 export const fetchPriceHistory = async (): Promise<PriceHistory | null> => {
@@ -48,6 +57,9 @@ export const sortData = (data: SMSRate[], sort: SortState): SMSRate[] => {
     switch (sort.field) {
       case 'price_usd':
         cmp = a.price_usd - b.price_usd;
+        break;
+      case 'total_price_usd':
+        cmp = a.total_price_usd - b.total_price_usd;
         break;
       case 'provider':
         cmp = a.provider.localeCompare(b.provider);

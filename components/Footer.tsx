@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
 
 export const Footer: React.FC = () => (
-  <footer className="border-t border-slate-200 dark:border-ink-border bg-white dark:bg-ink-deep mt-16">
+  <footer className="border-t border-slate-200 dark:border-ink-border bg-white dark:bg-ink-deep mt-16" role="contentinfo">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">
           <div className="flex items-center gap-2 mb-3">
-            <MessageSquare className="w-5 h-5 text-brand-500" />
+            <MessageSquare className="w-5 h-5 text-brand-500" aria-hidden="true" />
             <span className="font-display font-bold tracking-tight">
               SMS<span className="text-brand-400">_RATES</span>
             </span>
@@ -20,7 +20,7 @@ export const Footer: React.FC = () => (
         </div>
 
         {/* Tools */}
-        <div>
+        <nav aria-label="Tools">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
             Tools
           </h3>
@@ -28,10 +28,10 @@ export const Footer: React.FC = () => (
             <li><Link to="/compare" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">Price Comparison</Link></li>
             <li><Link to="/trends" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">Price Trends</Link></li>
           </ul>
-        </div>
+        </nav>
 
         {/* Resources */}
-        <div>
+        <nav aria-label="Resources">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
             Resources
           </h3>
@@ -40,10 +40,10 @@ export const Footer: React.FC = () => (
             <li><Link to="/methodology" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">Methodology</Link></li>
             <li><Link to="/about" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">About</Link></li>
           </ul>
-        </div>
+        </nav>
 
         {/* Providers */}
-        <div>
+        <nav aria-label="Providers">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">
             Providers
           </h3>
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => (
             <li><Link to="/provider/plivo" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">Plivo</Link></li>
             <li><Link to="/provider/telnyx" className="text-slate-600 dark:text-slate-400 hover:text-brand-500 transition-colors">Telnyx</Link></li>
           </ul>
-        </div>
+        </nav>
       </div>
 
       <div className="mt-10 pt-6 border-t border-slate-200 dark:border-ink-border flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => (
           SMS Rates &mdash; Prices are indicative and may vary. Always verify on the provider's site before purchasing.
         </p>
         <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-live" />
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-live" aria-hidden="true" />
           Tracking 8 providers
         </div>
       </div>

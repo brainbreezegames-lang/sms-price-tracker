@@ -23,8 +23,8 @@ export const Tooltip: React.FC<TooltipProps & { triggerOnTouch?: boolean }> = ({
   content,
   children,
   side = 'top',
-  maxWidth = 240,
-  delay = 120,
+  maxWidth = 260,
+  delay = 200,
   triggerOnTouch = false,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -66,11 +66,12 @@ export const Tooltip: React.FC<TooltipProps & { triggerOnTouch?: boolean }> = ({
     return () => document.removeEventListener('touchstart', dismiss, { capture: true });
   }, [visible, hide]);
 
+  const gap = 8;
   const transform =
-    side === 'top' ? 'translate(-50%, calc(-100% - 8px))' :
-      side === 'bottom' ? 'translate(-50%, 8px)' :
-        side === 'right' ? 'translate(8px, -50%)' :
-          'translate(calc(-100% - 8px), -50%)';
+    side === 'top' ? `translate(-50%, calc(-100% - ${gap}px))` :
+      side === 'bottom' ? `translate(-50%, ${gap}px)` :
+        side === 'right' ? `translate(${gap}px, -50%)` :
+          `translate(calc(-100% - ${gap}px), -50%)`;
 
   return (
     <>
@@ -97,7 +98,10 @@ export const Tooltip: React.FC<TooltipProps & { triggerOnTouch?: boolean }> = ({
             pointerEvents: 'none',
             maxWidth,
           }}
-          className="bg-slate-900 border border-slate-700/60 text-slate-100 text-[11px] leading-relaxed font-normal rounded-lg px-3 py-2 shadow-2xl whitespace-pre-wrap"
+          className="tooltip-enter rounded-lg px-3 py-2 shadow-lg shadow-black/10 dark:shadow-black/40 whitespace-pre-wrap
+            bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-600/50
+            text-[12px] leading-relaxed font-normal text-slate-700 dark:text-slate-200
+            backdrop-blur-sm"
         >
           {content}
         </div>,
